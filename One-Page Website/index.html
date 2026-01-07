@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Lightbox Project</title>
+    <style>
+        /* --- General Layout --- */
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; padding: 0; scroll-behavior: smooth; background: #f4f4f4; }
+        header { background: #2c3e50; color: #fff; padding: 1rem; position: fixed; width: 100%; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: center; }
+        nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        section { padding: 100px 20px; max-width: 1000px; margin: auto; background: white; border-bottom: 1px solid #ddd; }
+        footer { background: #2c3e50; color: #fff; text-align: center; padding: 20px; margin-top: 20px; }
+
+        /* --- Gallery Styling --- */
+        .gallery { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+        .gallery img { 
+            width: 250px; height: 180px; object-fit: cover; 
+            cursor: pointer; border-radius: 8px; transition: transform 0.3s ease; 
+        }
+        .gallery img:hover { transform: scale(1.05); }
+
+        /* --- Lightbox (Modal) Styling --- */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; z-index: 2000; padding-top: 60px;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .modal-content {
+            margin: auto; display: block; width: 80%; max-width: 800px;
+            border-radius: 5px; animation: zoom 0.6s;
+        }
+        @keyframes zoom { from {transform:scale(0)} to {transform:scale(1)} }
+        
+        .close {
+            position: absolute; top: 20px; right: 35px; color: #f1f1f1;
+            font-size: 40px; font-weight: bold; cursor: pointer;
+        }
+
+        /* --- Form Styling --- */
+        form { display: flex; flex-direction: column; max-width: 500px; margin: auto; }
+        input, textarea, button { margin-bottom: 15px; padding: 12px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #2c3e50; color: white; border: none; cursor: pointer; font-size: 1rem; }
+        button:hover { background: #34495e; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#video">Video</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section id="home">
+        <h1>Interactive Portfolio</h1>
+        <p>This page features a custom-built <strong>Lightbox Modal</strong>. Click any of the images in the gallery section below to see the effect in action!</p>
+    </section>
+
+    <section id="gallery">
+        <h2>Image Gallery</h2>
+        <p>Click an image to expand it:</p>
+        <div class="gallery">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Coding Setup" onclick="openModal(this.src)">
+            <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd" alt="Programming Logic" onclick="openModal(this.src)">
+            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97" alt="Tech Workspace" onclick="openModal(this.src)">
+        </div>
+    </section>
+
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <section id="video">
+        <h2>Project Video</h2>
+        <iframe width="100%" height="450" src="https://www.youtube.com/embed/qz0aGYrrlhU" title="HTML Video" frameborder="0" allowfullscreen></iframe>
+    </section>
+
+    <section id="contact">
+        <h2>Get in Touch</h2>
+        <form action="#">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <textarea rows="5" placeholder="Your message..."></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Web Dev Project | Lightbox Enabled</p>
+    </footer>
+
+    <script>
+        function openModal(src) {
+            document.getElementById("myModal").style.display = "block";
+            document.getElementById("img01").src = src;
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        // Close modal if user clicks anywhere outside the image
+        window.onclick = function(event) {
+            let modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
